@@ -1,0 +1,1 @@
+En este repositorio se muestra un archivo principal llamado reto técnico, en donde se muestran los puntos del 1 al 6, y también se listan allí los archivos complementarios que se encuentran dentro del repositorio
