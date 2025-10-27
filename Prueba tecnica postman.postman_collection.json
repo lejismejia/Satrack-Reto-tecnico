@@ -1,0 +1,515 @@
+{
+	"info": {
+		"_postman_id": "9155195e-259f-4c16-a2b2-7a9752948235",
+		"name": "Prueba tecnica postman",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4159444"
+	},
+	"item": [
+		{
+			"name": "Punto 6",
+			"item": [
+				{
+					"name": "Punto 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json()\r",
+									"\r",
+									"console.log(\"El codigo de respuesta fue \" + pm.response.code)\r",
+									"console.log(\"La primera pagina tiene \" + response.results.length + \" personajes.\")\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://rickandmortyapi.com/api/character",
+							"protocol": "https",
+							"host": [
+								"rickandmortyapi",
+								"com"
+							],
+							"path": [
+								"api",
+								"character"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Punto 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json()\r",
+									"\r",
+									"console.log(\"El nombre del personaje es \" + response.name + \", es de especie \" + response.species + \" y su estatus es \" + response.status)"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://rickandmortyapi.com/api/character/1",
+							"protocol": "https",
+							"host": [
+								"rickandmortyapi",
+								"com"
+							],
+							"path": [
+								"api",
+								"character",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Punto 5",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json()\r",
+									"\r",
+									"console.log(\"Los personajes vivos y huemanos son \" + response.info.count)"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://rickandmortyapi.com/api/character/?status=alive&species=human",
+							"protocol": "https",
+							"host": [
+								"rickandmortyapi",
+								"com"
+							],
+							"path": [
+								"api",
+								"character",
+								""
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "alive"
+								},
+								{
+									"key": "species",
+									"value": "human"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Punto 3",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://rickandmortyapi.com/api/character/99999",
+							"protocol": "https",
+							"host": [
+								"rickandmortyapi",
+								"com"
+							],
+							"path": [
+								"api",
+								"character",
+								"99999"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Punto 6",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json()\r",
+									"const personajes = response.characters\r",
+									"\r",
+									"personajes.forEach(personajeUrl => {\r",
+									"    pm.sendRequest({ url: personajeUrl, method: 'GET' }, (error, response) => {\r",
+									"        var responsePersonaje = response.json();\r",
+									"        console.log(responsePersonaje.name)\r",
+									"    })\r",
+									"})\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://rickandmortyapi.com/api/episode/1",
+							"protocol": "https",
+							"host": [
+								"rickandmortyapi",
+								"com"
+							],
+							"path": [
+								"api",
+								"episode",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Punto 7",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json()\r",
+									"var tieneAlive = false\r",
+									"\r",
+									"response.results.forEach(personaje => {\r",
+									"    if (personaje.status == \"Alive\") {\r",
+									"        tieneAlive = true\r",
+									"        return\r",
+									"    }\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Verificar al menos un personaje vivo\", function () {\r",
+									"    pm.expect(tieneAlive, \"no contiene el estado Alive\").to.be.true\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://rickandmortyapi.com/api/character/?name=rick sanchez",
+							"protocol": "https",
+							"host": [
+								"rickandmortyapi",
+								"com"
+							],
+							"path": [
+								"api",
+								"character",
+								""
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "rick sanchez"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Punto 8 y 9",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseRick = pm.response.json().results[0];",
+									"",
+									"pm.sendRequest({",
+									"    url: \"https://rickandmortyapi.com/api/character/?name=Summer Smith\",",
+									"    method: \"GET\"",
+									"}, (error, response) => {",
+									"    if (error) {",
+									"        console.log(\"Error al obtener datos de Summer:\", error);",
+									"        return;",
+									"    }",
+									"",
+									"    const responseSummer = response.json().results[0];",
+									"",
+									"    if (responseRick.episode.length > responseSummer.episode.length) {",
+									"        console.log(\"Rick Sanchez aparece en más episodios\");",
+									"    } else if (responseRick.episode.length < responseSummer.episode.length) {",
+									"        console.log(\"Summer Smith aparece en más episodios\");",
+									"    } else {",
+									"        console.log(\"Rick y Summer aparecen en la misma cantidad de episodios\");",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://rickandmortyapi.com/api/character/?name=Rick Sanchez",
+							"protocol": "https",
+							"host": [
+								"rickandmortyapi",
+								"com"
+							],
+							"path": [
+								"api",
+								"character",
+								""
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Rick Sanchez"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Punto 5",
+			"item": [
+				{
+					"name": "Punto 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json()\r",
+									"var municipios = response.municipalities\r",
+									"var capital = response.cityCapital.name\r",
+									"\r",
+									"console.log(\"Muninicipios = \" + municipios)\r",
+									"console.log(\"Capital de \" + response.name + \" es \" + capital)\r",
+									"\r",
+									"pm.test(\"Capital de \" + response.name + \" es \" + capital, function () {\r",
+									"    pm.expect(capital, \"No existe la ciudad\").to.not.be.empty\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api-colombia.com/api/v1/Department/2",
+							"protocol": "https",
+							"host": [
+								"api-colombia",
+								"com"
+							],
+							"path": [
+								"api",
+								"v1",
+								"Department",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Punto 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const ciudades = pm.response.json()\r",
+									"const ciudadBuscar = \"Medellín\"\r",
+									"var poblacion = 0\r",
+									"var poblacionMedellin = false\r",
+									"\r",
+									"\r",
+									"pm.test(\"Medellin pertenece a antioquia\", function () {\r",
+									"    poblacionMedellin = ciudades.some(ciudad => {\r",
+									"        if (ciudad.name === ciudadBuscar) {\r",
+									"            poblacion = ciudad.population\r",
+									"            return true;\r",
+									"        }\r",
+									"    });\r",
+									"\r",
+									"    pm.expect(poblacionMedellin, \"No existe la ciudad \" + ciudadBuscar + \" en el departamento\").to.be.true;\r",
+									"\r",
+									"    if (poblacion) {\r",
+									"        pm.test(\"La problacion de \" + ciudadBuscar + \" es \" + poblacion)\r",
+									"    }\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api-colombia.com/api/v1/Department/2/cities",
+							"protocol": "https",
+							"host": [
+								"api-colombia",
+								"com"
+							],
+							"path": [
+								"api",
+								"v1",
+								"Department",
+								"2",
+								"cities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Punto 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const atracciones = pm.response.json()\r",
+									"const departamento = 6\r",
+									"var atraccionesDepartamento = []\r",
+									"\r",
+									"pm.test(\"Atracciones de Bolivar\", function () {\r",
+									"    atracciones.forEach(atraccion => {\r",
+									"        if (atraccion.city.departmentId === departamento) {\r",
+									"            atraccionesDepartamento.push(atraccion)\r",
+									"        }\r",
+									"    });\r",
+									"\r",
+									"    atraccionesDepartamento3 = atraccionesDepartamento.slice(0, 3).map(a => a.name)\r",
+									"\r",
+									"    pm.expect(atraccionesDepartamento3, \"No existen atracciones en el departamento\").to.not.be.empty\r",
+									"\r",
+									"    if (atraccionesDepartamento3) {\r",
+									"       pm.test(\"Las tres atracciones de Bolivar son : \" + atraccionesDepartamento3.join(\", \"))\r",
+									"    } \r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api-colombia.com/api/v1/TouristicAttraction",
+							"protocol": "https",
+							"host": [
+								"api-colombia",
+								"com"
+							],
+							"path": [
+								"api",
+								"v1",
+								"TouristicAttraction"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "punto 4",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api-colombia.com/api/v1/Department/15",
+							"protocol": "https",
+							"host": [
+								"api-colombia",
+								"com"
+							],
+							"path": [
+								"api",
+								"v1",
+								"Department",
+								"15"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
